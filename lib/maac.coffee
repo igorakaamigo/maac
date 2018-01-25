@@ -24,7 +24,7 @@ showAModal = (link, defaultYes, defaultNo, defaultClose, defaultTitle) ->
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title"></h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="">
+          <button type="button" class="close" aria-label="">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -42,7 +42,7 @@ showAModal = (link, defaultYes, defaultNo, defaultClose, defaultTitle) ->
   modal.querySelector('.modal-footer > .btn-primary').innerText = dialogNo
   modal.querySelector('.modal-header > button').setAttribute('aria-label', dialogClose)
   modal.querySelector('.modal-header > h5').innerText = dialogTitle
-  Rails.delegate modal, '.btn-primary', 'click', (event) ->
+  Rails.delegate modal, '.close,.btn-primary', 'click', (event) ->
     Rails.stopEverything(event)
     modal.remove()
 
