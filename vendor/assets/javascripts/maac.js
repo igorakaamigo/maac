@@ -1,3 +1,11 @@
+
+/*!
+Modal As A Confirm (MAAC) v0.1.0-alpha (2018-01-26T01:07:26+03:00)
+https://github.com/igorakaamigo/maac
+Released under the MIT license:
+https://github.com/igorakaamigo/maac/blob/master/MIT-LICENSE
+ */
+
 (function() {
   var showAModal;
 

@@ -31,12 +31,15 @@ end
 
 desc 'Compile vendor scripts'
 task 'vendor:compile' do
+  require 'maac/version'
   require 'coffee-script'
   require 'fileutils'
 
   FileUtils.mkpath('vendor/assets/javascripts')
   File.open('vendor/assets/javascripts/maac.js', 'w') do |f|
-    f << CoffeeScript::compile(File.new('lib/maac.coffee'))
+    source = File.new('lib/maac.coffee').read
+    version = Maac::VERSION
+    f << CoffeeScript::compile(source.gsub(/{VERSION}/, "v#{version}").gsub(/{DATE}/, DateTime.now.to_s))
   end
 end
 
