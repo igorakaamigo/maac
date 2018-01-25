@@ -1,5 +1,9 @@
 # Modal As A Confirm (MAAC)
 
+[![License](https://img.shields.io/github/license/igorakaamigo/maac.svg)](https://github.com/igorakaamigo/maac/blob/master/MIT-LICENSE)
+[![Build Status](https://img.shields.io/travis/igorakaamigo/maac/master.svg)](https://travis-ci.org/igorakaamigo/maac)
+[![Gem](https://img.shields.io/gem/v/maac.svg)](https://rubygems.org/gems/maac)
+
 This gem allows you to replace standard confirm() call for data-confirm'ed page elements,
 with a bootstrap modal. I.e. instead of calling confirm("Are you sure?") this code will draw
 a bootstrap yes-no modal after clicking the link.
