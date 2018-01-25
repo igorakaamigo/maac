@@ -25,13 +25,13 @@
     dialogNo = link.getAttribute('data-confirm-no') || defaultNo;
     dialogClose = link.getAttribute('data-confirm-close') || defaultClose;
     dialogTitle = link.getAttribute('data-confirm-title') || defaultTitle;
-    modal.innerHTML = '<div class="modal-dialog" role="document"> <div class="modal-content"> <div class="modal-header"> <h5 class="modal-title"></h5> <button type="button" class="close" data-dismiss="modal" aria-label=""> <span aria-hidden="true">&times;</span> </button> </div> <div class="modal-body"> <p></p> </div> <div class="modal-footer"> <button type="button" class="btn btn-secondary"></button> <button type="button" class="btn btn-primary"></button> </div> </div> </div>';
+    modal.innerHTML = '<div class="modal-dialog" role="document"> <div class="modal-content"> <div class="modal-header"> <h5 class="modal-title"></h5> <button type="button" class="close" aria-label=""> <span aria-hidden="true">&times;</span> </button> </div> <div class="modal-body"> <p></p> </div> <div class="modal-footer"> <button type="button" class="btn btn-secondary"></button> <button type="button" class="btn btn-primary"></button> </div> </div> </div>';
     modal.querySelector('.modal-body > p').innerText = link.getAttribute('data-confirm');
     modal.querySelector('.modal-footer > .btn-secondary').innerText = dialogYes;
     modal.querySelector('.modal-footer > .btn-primary').innerText = dialogNo;
     modal.querySelector('.modal-header > button').setAttribute('aria-label', dialogClose);
     modal.querySelector('.modal-header > h5').innerText = dialogTitle;
-    Rails.delegate(modal, '.btn-primary', 'click', function(event) {
+    Rails.delegate(modal, '.close,.btn-primary', 'click', function(event) {
       Rails.stopEverything(event);
       return modal.remove();
     });

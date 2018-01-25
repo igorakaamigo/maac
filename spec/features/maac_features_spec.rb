@@ -88,7 +88,7 @@ feature 'A confirm() replacement', type: :feature do
         scenario 'a valid header' do
           header_selector = "#{modal_selector} > .modal-dialog > .modal-content > .modal-header"
           expect(page).to have_css("#{header_selector} > h5.modal-title", count: 1, text: text_for_title)
-          expect(page).to have_css("#{header_selector} > button.close[data-dismiss=modal][type=button][aria-label='Close']", count: 1)
+          expect(page).to have_css("#{header_selector} > button.close[type=button][aria-label='Close']", count: 1)
         end
 
         scenario 'a valid body' do
@@ -125,7 +125,7 @@ feature 'A confirm() replacement', type: :feature do
         scenario 'a valid header' do
           header_selector = "#{modal_selector} > .modal-dialog > .modal-content > .modal-header"
           expect(page).to have_css("#{header_selector} > h5.modal-title", count: 1, text: text_for_title)
-          expect(page).to have_css("#{header_selector} > button.close[data-dismiss=modal][type=button][aria-label='#{confirmation_close}']", count: 1)
+          expect(page).to have_css("#{header_selector} > button.close[type=button][aria-label='#{confirmation_close}']", count: 1)
         end
 
         scenario 'a valid body' do
@@ -143,6 +143,18 @@ feature 'A confirm() replacement', type: :feature do
 
     context 'while modal is shown', js: true do
       before { click_link class: 'with-data-confirm' }
+
+      context 'after pressing a Close button' do
+        before { click_button class: 'close' }
+
+        it 'should not have any modal code' do
+          expect(page).not_to have_css('.modal', visible: :any)
+        end
+
+        it 'should not have a target page text' do
+          expect(page).not_to have_text(target_page_text)
+        end
+      end
 
       context 'after pressing a No button' do
         before { click_button class: 'btn-primary' }
