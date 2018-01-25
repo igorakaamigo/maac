@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - A development chapter improved at README.md
 
 ### Fixed
+- A yes button click did not work correctly 
 - A close button click did nothing 
 - A repo link fixed at README.md 
 
