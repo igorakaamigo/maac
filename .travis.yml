@@ -1,0 +1,12 @@
+sudo: false
+language: ruby
+rvm: 2.4.2
+
+before_install: gem install bundler -v 1.16.0
+
+script:
+  - rake
+  - rake build
+
+notifications:
+  email: false
