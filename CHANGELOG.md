@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Changed
+- Badges added to README.md
 - Travis CI setup
 - A development chapter improved at README.md
 
