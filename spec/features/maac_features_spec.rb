@@ -102,6 +102,8 @@ feature 'A confirm() replacement', type: :feature do
           expect(page).to have_css("#{footer_selector} > button.btn.btn-primary[type=button]", count: 1, text: text_for_no)
         end
       end
+
+      it 'should call a $(".modal").modal()'
     end
 
     context 'clicking on a link with a data-confirm attribute and customizations', js: true do
@@ -139,6 +141,8 @@ feature 'A confirm() replacement', type: :feature do
           expect(page).to have_css("#{footer_selector} > button.btn.btn-primary[type=button]", count: 1, text: text_for_no)
         end
       end
+
+      it 'should call a $(".modal").modal()'
     end
 
     context 'while modal is shown', js: true do
@@ -154,6 +158,8 @@ feature 'A confirm() replacement', type: :feature do
         it 'should not have a target page text' do
           expect(page).not_to have_text(target_page_text)
         end
+
+        it 'should call a $(".modal").modal("hide")'
       end
 
       context 'after pressing a No button' do
@@ -166,6 +172,8 @@ feature 'A confirm() replacement', type: :feature do
         it 'should not have a target page text' do
           expect(page).not_to have_text(target_page_text)
         end
+
+        it 'should call a $(".modal").modal("hide")'
       end
 
       context 'after pressing a Yes button' do
@@ -174,6 +182,8 @@ feature 'A confirm() replacement', type: :feature do
         it 'should have a target page text' do
           expect(page).to have_text(target_page_text)
         end
+
+        it 'should call a $(".modal").modal("hide")'
       end
     end
   end

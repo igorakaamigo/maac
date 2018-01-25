@@ -9,6 +9,10 @@ Rails.delegate document, 'a[data-confirm]', 'confirm', (event) ->
   showAModal(this, 'Yes', 'No', 'Close', 'Confirm')
   false
 
+safeBsModal = (arg) ->
+  if @jQuery and @jQuery.fn.modal
+    @jQuery('.modal').modal(arg)
+
 showAModal = (link, defaultYes, defaultNo, defaultClose, defaultTitle) ->
   modal = document.createElement('div')
   modal.className = 'modal'
@@ -46,6 +50,7 @@ showAModal = (link, defaultYes, defaultNo, defaultClose, defaultTitle) ->
 
   close = ->
     Rails.stopEverything(event)
+    safeBsModal('hide')
     modal.remove()
 
   Rails.delegate modal, '.close,.btn-primary', 'click', close
@@ -56,3 +61,4 @@ showAModal = (link, defaultYes, defaultNo, defaultClose, defaultTitle) ->
     Rails.fire link, 'click'
 
   document.body.appendChild(modal)
+  safeBsModal()
