@@ -1,11 +1,5 @@
 Rails.delegate document, 'a[data-confirm]', 'confirm', (event) ->
-  link = this
-  if link.hasAttribute('data-confirmed')
-    link.removeAttribute('data-confirmed')
-    confirm = -> true
-    return true
-
-  showAModal(link, 'Yes', 'No', 'Close', 'Confirm')
+  showAModal(this, 'Yes', 'No', 'Close', 'Confirm')
   false
 
 showAModal = (link, defaultYes, defaultNo, defaultClose, defaultTitle) ->
@@ -42,14 +36,16 @@ showAModal = (link, defaultYes, defaultNo, defaultClose, defaultTitle) ->
   modal.querySelector('.modal-footer > .btn-primary').innerText = dialogNo
   modal.querySelector('.modal-header > button').setAttribute('aria-label', dialogClose)
   modal.querySelector('.modal-header > h5').innerText = dialogTitle
-  Rails.delegate modal, '.close,.btn-primary', 'click', (event) ->
+
+  close = ->
     Rails.stopEverything(event)
     modal.remove()
 
+  Rails.delegate modal, '.close,.btn-primary', 'click', close
+
   Rails.delegate modal, '.btn-secondary', 'click', (event) ->
-    Rails.stopEverything(event)
-    modal.remove()
-    link.setAttribute('data-confirmed', true)
+    close()
+    link.removeAttribute('data-confirm')
     Rails.fire link, 'click'
 
   document.body.appendChild(modal)

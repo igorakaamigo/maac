@@ -2,21 +2,12 @@
   var showAModal;
 
   Rails.delegate(document, 'a[data-confirm]', 'confirm', function(event) {
-    var confirm, link;
-    link = this;
-    if (link.hasAttribute('data-confirmed')) {
-      link.removeAttribute('data-confirmed');
-      confirm = function() {
-        return true;
-      };
-      return true;
-    }
-    showAModal(link, 'Yes', 'No', 'Close', 'Confirm');
+    showAModal(this, 'Yes', 'No', 'Close', 'Confirm');
     return false;
   });
 
   showAModal = function(link, defaultYes, defaultNo, defaultClose, defaultTitle) {
-    var dialogClose, dialogNo, dialogTitle, dialogYes, modal;
+    var close, dialogClose, dialogNo, dialogTitle, dialogYes, modal;
     modal = document.createElement('div');
     modal.className = 'modal';
     modal.setAttribute('tabindex', '-1');
@@ -31,14 +22,14 @@
     modal.querySelector('.modal-footer > .btn-primary').innerText = dialogNo;
     modal.querySelector('.modal-header > button').setAttribute('aria-label', dialogClose);
     modal.querySelector('.modal-header > h5').innerText = dialogTitle;
-    Rails.delegate(modal, '.close,.btn-primary', 'click', function(event) {
+    close = function() {
       Rails.stopEverything(event);
       return modal.remove();
-    });
+    };
+    Rails.delegate(modal, '.close,.btn-primary', 'click', close);
     Rails.delegate(modal, '.btn-secondary', 'click', function(event) {
-      Rails.stopEverything(event);
-      modal.remove();
-      link.setAttribute('data-confirmed', true);
+      close();
+      link.removeAttribute('data-confirm');
       return Rails.fire(link, 'click');
     });
     return document.body.appendChild(modal);
