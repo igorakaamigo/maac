@@ -75,21 +75,51 @@ Or:
 
 ## Development
 
-### Installing dependencies
+Most important steps are described below. You can also look at defined rake tasks by typing:
+
+    $ rake -T
+
+### Setup
+
+You must perform a few simple steps to prepare the project for development:
 
     $ bundle install
+    $ rake db:migrate
+    $ rake
 
 ### Testing
 
+The project uses automated testing. The RSpec is used.
+The /spec directory contents:
+
+- **/spec/dummy** - *a simple rails app used for gem testing*
+- **/spec/factories** - *factory_bot factory descriptions*
+- **/spec/features/maac_features_spec.rb** - *gem specifications*
+- **/spec/spec_helper.rb** - *a helper file*
+
+To start automated testing just type:
+
     $ rake
 
-TODO: Write other steps
+### Building
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+To build a gem, type:
+
+    $ rake build
+
+### Releasing
+
+To create a tag, build and push gem to rubygems.org, type:
+
+    $ rake release
+
+### Versioning
+
+A current version is defined in **lib/maac/version.rb** file.
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/igorakaamigo/rails5-bootstrap-confirm.
+Bug reports and pull requests are welcome on GitHub at https://github.com/igorakaamigo/maac.
 
 ## License
 
