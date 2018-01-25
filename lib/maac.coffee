@@ -1,3 +1,10 @@
+###!
+Modal As A Confirm (MAAC) {VERSION} ({DATE})
+https://github.com/igorakaamigo/maac
+Released under the MIT license:
+https://github.com/igorakaamigo/maac/blob/master/MIT-LICENSE
+###
+
 Rails.delegate document, 'a[data-confirm]', 'confirm', (event) ->
   showAModal(this, 'Yes', 'No', 'Close', 'Confirm')
   false
