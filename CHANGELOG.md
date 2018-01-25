@@ -6,9 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.1.0-alpha] - 2018-01-25
+
 ### Added
 - MIT license file
 - Changelog file
 - Readme file
 - Git support files
+- Gem support files
 - Simple implementation and RSpec/Capybara testing
