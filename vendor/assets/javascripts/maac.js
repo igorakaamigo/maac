@@ -1,18 +1,24 @@
 
 /*!
-Modal As A Confirm (MAAC) v0.1.0-alpha (2018-01-26T01:07:26+03:00)
+Modal As A Confirm (MAAC) v0.1.0-alpha (2018-01-26T02:02:08+03:00)
 https://github.com/igorakaamigo/maac
 Released under the MIT license:
 https://github.com/igorakaamigo/maac/blob/master/MIT-LICENSE
  */
 
 (function() {
-  var showAModal;
+  var safeBsModal, showAModal;
 
   Rails.delegate(document, 'a[data-confirm]', 'confirm', function(event) {
     showAModal(this, 'Yes', 'No', 'Close', 'Confirm');
     return false;
   });
+
+  safeBsModal = function(arg) {
+    if (this.jQuery && this.jQuery.fn.modal) {
+      return this.jQuery('.modal').modal(arg);
+    }
+  };
 
   showAModal = function(link, defaultYes, defaultNo, defaultClose, defaultTitle) {
     var close, dialogClose, dialogNo, dialogTitle, dialogYes, modal;
@@ -32,6 +38,7 @@ https://github.com/igorakaamigo/maac/blob/master/MIT-LICENSE
     modal.querySelector('.modal-header > h5').innerText = dialogTitle;
     close = function() {
       Rails.stopEverything(event);
+      safeBsModal('hide');
       return modal.remove();
     };
     Rails.delegate(modal, '.close,.btn-primary', 'click', close);
@@ -40,7 +47,8 @@ https://github.com/igorakaamigo/maac/blob/master/MIT-LICENSE
       link.removeAttribute('data-confirm');
       return Rails.fire(link, 'click');
     });
-    return document.body.appendChild(modal);
+    document.body.appendChild(modal);
+    return safeBsModal();
   };
 
 }).call(this);
