@@ -176,6 +176,8 @@ feature 'A confirm() replacement', type: :feature do
         it 'should call a $(".modal").modal("hide")'
       end
 
+      it 'should test a modal backdrop click'
+
       context 'after pressing a Yes button' do
         before { click_button class: 'btn-secondary' }
 

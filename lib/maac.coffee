@@ -54,6 +54,7 @@ showAModal = (link, defaultYes, defaultNo, defaultClose, defaultTitle) ->
     modal.remove()
 
   Rails.delegate modal, '.close,.btn-primary', 'click', close
+  Rails.delegate document, '.modal-backdrop', 'click', close
 
   Rails.delegate modal, '.btn-secondary', 'click', (event) ->
     close()
