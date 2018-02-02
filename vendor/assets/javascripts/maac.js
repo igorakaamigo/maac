@@ -1,6 +1,6 @@
 
 /*!
-Modal As A Confirm (MAAC) v1.0.0 (2018-01-26T02:19:14+03:00)
+Modal As A Confirm (MAAC) v1.0.0 (2018-02-02T21:23:24+03:00)
 https://github.com/igorakaamigo/maac
 Released under the MIT license:
 https://github.com/igorakaamigo/maac/blob/master/MIT-LICENSE
@@ -42,6 +42,7 @@ https://github.com/igorakaamigo/maac/blob/master/MIT-LICENSE
       return modal.remove();
     };
     Rails.delegate(modal, '.close,.btn-primary', 'click', close);
+    Rails.delegate(document, '.modal-backdrop', 'click', close);
     Rails.delegate(modal, '.btn-secondary', 'click', function(event) {
       close();
       link.removeAttribute('data-confirm');
