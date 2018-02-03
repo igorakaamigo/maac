@@ -1,6 +1,6 @@
 
 /*!
-Modal As A Confirm (MAAC) v1.0.1 (2018-02-02T21:36:12+03:00)
+Modal As A Confirm (MAAC) v1.0.1 (2018-02-03T14:58:07+03:00)
 https://github.com/igorakaamigo/maac
 Released under the MIT license:
 https://github.com/igorakaamigo/maac/blob/master/MIT-LICENSE

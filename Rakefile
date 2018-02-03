@@ -37,7 +37,7 @@ task 'vendor:compile' do
 
   FileUtils.mkpath('vendor/assets/javascripts')
   File.open('vendor/assets/javascripts/maac.js', 'w') do |f|
-    source = File.new('lib/maac.coffee').read
+    source = File.new('src/maac.coffee').read
     version = Maac::VERSION
     f << CoffeeScript::compile(source.gsub(/{VERSION}/, "v#{version}").gsub(/{DATE}/, DateTime.now.to_s))
   end
