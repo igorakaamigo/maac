@@ -1,0 +1,6 @@
+--default-path ../../../../spec/
+--require support/dummy/bs3/spec/spec_helper
+--format documentation
+--tag substantive
+--tag rails51
+--tag bs3

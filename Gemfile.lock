@@ -1,0 +1,17 @@
+PATH
+  remote: .
+  specs:
+    maac (2.0.0.pre.alpha)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  maac!
+
+BUNDLED WITH
+   1.16.1

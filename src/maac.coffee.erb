@@ -1,0 +1,54 @@
+###!
+# Modal As A Confirm (MAAC) {VERSION} ({DATE})
+# https://github.com/igorakaamigo/maac
+# Released under the MIT license:
+# https://github.com/igorakaamigo/maac/blob/master/MIT-LICENSE
+###
+
+class @Maac
+  @version: '{VERSION}'
+  @strings: <%= Maac.strings.to_json %>
+  @template: <%= Maac.template.to_json %>
+  @selector: <%= Maac.selector.to_json %>
+  @selector_y: <%= Maac.selector_y.to_json %>
+  @selector_n: <%= Maac.selector_n.to_json %>
+  @after_append: <%= Maac.after_append %>
+  @before_remove: <%= Maac.before_remove %>
+
+  @show: ->
+    unless document.querySelector Maac.selector
+      document.body.innerHTML += Maac.html()
+      Maac.after_append()
+
+  @hide: (confirmed) ->
+    Maac.before_remove ->
+      document.querySelector(Maac.selector).remove()
+      if confirmed
+        Maac._link.removeAttribute('data-confirm')
+        Maac._link.click()
+
+  @avalue: (key) ->
+    if key == 'text'
+      Maac._link.getAttribute('data-confirm')
+    else
+      Maac._link.getAttribute("data-confirm-#{key}") || Maac.strings[key]
+
+  @html: ->
+    Maac.template.replace /%{(.*?)}/g, (_, key) ->
+      Maac.avalue(key)
+
+  @initialize: ->
+    Rails.delegate document, 'a[data-confirm]', 'confirm', ->
+      Maac._link = this
+      Maac.show()
+      false
+
+    Rails.delegate document, Maac.selector_n, 'click', (event) ->
+      Rails.stopEverything(event)
+      Maac.hide()
+
+    Rails.delegate document, Maac.selector_y, 'click', (event) ->
+      Rails.stopEverything(event)
+      Maac.hide(true)
+
+Maac.initialize()

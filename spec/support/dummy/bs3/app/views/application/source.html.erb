@@ -1,0 +1,13 @@
+This is a source page
+<%= link_to 'A link without confirmation', target_page_path, class: 'without-confirm' %>
+
+<%= link_to 'A link with confirmation', target_page_path, class: 'with-confirm', 'data-confirm': 'Confirmation text' %>
+
+<%= link_to 'A link with customized confirmation',
+            target_page_path,
+            class: 'with-customized-confirm',
+            'data-confirm': 'Confirmation text',
+            'data-confirm-title': 'Title text',
+            'data-confirm-yes': 'Yes text',
+            'data-confirm-no': 'No text',
+            'data-confirm-close': 'Close text' %>

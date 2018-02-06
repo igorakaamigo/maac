@@ -5,9 +5,33 @@
 [![Gem](https://img.shields.io/gem/v/maac.svg)](https://rubygems.org/gems/maac)
 
 This gem allows you to replace standard confirm() call for data-confirm'ed page elements,
-with a bootstrap modal. I.e. instead of calling confirm("Are you sure?") this code will draw
-a bootstrap yes-no modal after clicking the link.
-For now, you can customize dialog texts using following attributes:
+with a html modal (Bootstrap modal or a custom markup). I.e. instead of calling confirm("Are you sure?") this code will draw
+a yes-no popup after clicking the link.
+
+```rhtml
+<%= link_to 'A very dangerous action',
+        dangerous_action_path,
+        data: {
+            method: :delete,
+            confirm: 'Are you sure?'
+        } %>
+```
+
+```rhtml
+<%= link_to 'A very dangerous action',
+        dangerous_action_path,
+        data: {
+            method: :delete,
+            'confirm-title': 'Oh, no!',
+            confirm: 'Are you sure?'
+        } %>
+``` 
+
+There are lots of gems for the similar purposes, but I found nothing appropriate for Rails 5.1
+So I've made it for my own purposes. I'll be happy if you find it useful.
+
+## Run-time configuration
+You can simply customize titles via link attributes:
 
 - **data-confirm-title** - *dialog title text: default value is "Confirm"*
 
@@ -22,11 +46,73 @@ For now, you can customize dialog texts using following attributes:
         dangerous_action_path,
         data: {
             method: :delete,
-            confirm: 'Are you sure?'
+            confirm: 'Are you sure?',
+            'confirm-title': 'Important!',
+            'confirm-yes': 'Proceed',
+            'confirm-no': 'Dismiss',
+            'confirm-close': 'Never mind'
         } %>
 ```
-There are lots of gems for the same purpose, but I found nothing appropriate for Rails 5.
-So I've made it for my purposes. I'll be happy if you find it useful.
+
+## Initialization
+If your gemfile includes a gem, which is named with something containing "bootstrap",
+the bootstrap modal'll be used by default. Otherwise it will use the following template code:
+
+```html
+<div class="maac-popup">
+    <div class="maac-popup_inner">
+        <div class="maac-popup_header">
+            <div class="maac-popup_header_title">%{title}</div>
+            <div class="maac-popup_header_buttons">
+                <a id="js-maac-close" href="javascript:void(0)" class="maac-popup_header_buttons_button maac-popup_header_buttons_button__close">%{close}</a>
+            </div>
+        </div>
+        <div class="maac-popup_body">%{text}</div>
+        <div class="maac-popup_footer">
+            <div class="maac-popup_footer_buttons">
+                <a id="js-maac-yes" href="javascript:void(0)" class="maac-popup_footer_buttons_button maac-popup_footer_buttons_button__yes">%{yes}</a>
+                <a id="js-maac-no" href="javascript:void(0)" class="maac-popup_footer_buttons_button maac-popup_footer_buttons_button__no">%{no}</a>
+            </div>
+        </div>
+    </div>
+</div>
+```
+
+You can add an initializer, i.e.:
+*/config/initializers/maac.rb*:
+```ruby
+Maac.configure do |config|
+  # Strings to be substituted into template
+  # (using %{key}). You can define your own set of keys
+  config.strings = {
+    title: 'A default title value',
+    yes:   'A default Yes button text',
+    no:    'A default No button text',
+    close: 'A default Close button text'
+  }
+
+  # A modal' template code
+  config.template      = '<div class="my-modal"><span id="js-yes">%{yes}</span><span id="js-no">%{no}</span></div>'
+
+  # A modal' selector – used to remove the modal code and
+  # for event bindings 
+  config.selector      = '.my-modal'
+
+  # Selector of a yes button 
+  config.selector_y    = '#js-yes'
+
+  # Selector of a no button
+  config.selector_n    = '#js-no'
+  
+  # Callback, which is called just after the modal code
+  # appended to a page
+  config.after_append  = 'function () {}'
+
+  # Async handler, called before code removement.
+  # After your code completes the execution call cb()
+  config.before_remove = 'function (cb) { cb(); }'
+end
+```
 
 ## Installation
 
@@ -85,21 +171,26 @@ Most important steps are described below. You can also look at defined rake task
 
 ### Setup
 
-You must perform a few simple steps to prepare the project for development:
+Simply run:
 
     $ bundle install
-    $ rake db:migrate
+    $ rake dummy:dep
     $ rake
+
+And rake will compile the .coffee.erb code and run all tests for you.
 
 ### Testing
 
 The project uses automated testing. The RSpec is used.
 The /spec directory contents:
 
-- **/spec/dummy** - *a simple rails app used for gem testing*
-- **/spec/factories** - *factory_bot factory descriptions*
-- **/spec/features/maac_features_spec.rb** - *gem specifications*
-- **/spec/spec_helper.rb** - *a helper file*
+- **/spec/features/client_spec.rb** - the main behaviour testing
+- **/spec/features/config_spec.rb** - the gem' configuration testing
+- **/spec/features/host_application_spec.rb** - dummy application, which uses the maac, testing
+ 
+- **/spec/support/dummy** - dummy applications
+- **/spec/support/dummy/vanilla** - a dummy app, which uses neither jQuery nor Bpptstrap
+- **/spec/support/dummy/bs3** - a dummy app, which uses both jQuery and Bpptstrap
 
 To start automated testing just type:
 
