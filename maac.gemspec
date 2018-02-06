@@ -13,6 +13,4 @@ Gem::Specification.new do |s|
   s.description = 'This gem allows you to replace standard confirm() call for data-confirm\'ed page elements, with a nice styled modal.'
   s.license     = 'MIT'
   s.files       = Dir['MIT-LICENSE', 'README.md', 'lib/**/*.rb', 'app/**/*.js', 'app/**/*.js.erb', 'tpl/**/*.html']
-
-  s.add_development_dependency 'coffee-script', '~> 2.4'
 end

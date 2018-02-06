@@ -6,17 +6,11 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    coffee-script (2.4.1)
-      coffee-script-source
-      execjs
-    coffee-script-source (1.12.2)
-    execjs (2.7.0)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  coffee-script (~> 2.4)
   maac!
 
 BUNDLED WITH
